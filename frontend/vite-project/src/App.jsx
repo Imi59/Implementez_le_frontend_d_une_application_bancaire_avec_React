@@ -22,6 +22,7 @@ const App = () => {
             </>
           }
         />
+        <Route path="/user" />
       </Routes>
       <Footer />
     </BrowserRouter>
