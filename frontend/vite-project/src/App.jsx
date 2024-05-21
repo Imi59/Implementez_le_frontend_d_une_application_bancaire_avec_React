@@ -2,7 +2,8 @@ import Header from "./components/Header/Header.jsx";
 import Home from "./components/Home/Home.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import SignIn from "./components/SignIn/SignIn.jsx";
-import User from "./components/User/User.jsx"
+import User from "./components/User/User.jsx";
+import EditName from "./components/EditName/EditName.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 const App = () => {
@@ -23,7 +24,8 @@ const App = () => {
             </>
           }
         />
-        <Route path="/user" element={<User />}  />
+        <Route path="/user" element={<User />} />
+        <Route path="/editUser" element={<EditName />} />
       </Routes>
       <Footer />
     </BrowserRouter>
