@@ -1,5 +1,5 @@
 import logo from "../../assets/images/argentBankLogo.png";
-import { LuLogOut } from "react-icons/lu";
+import { LuLogOut } from "react-icons/lu"; //npm install react-icons
 //Variable pour manipuler le store redux
 import { useSelector, useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
