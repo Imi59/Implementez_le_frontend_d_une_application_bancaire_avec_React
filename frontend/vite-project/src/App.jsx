@@ -1,31 +1,56 @@
 import Header from "./components/Header/Header.jsx";
-import Home from "./components/Home/Home.jsx";
+import MainHome from "./components/Home/Home.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import SignIn from "./components/SignIn/SignIn.jsx";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import User from "./components/User/User.jsx";
 import EditName from "./components/EditName/EditName.jsx";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import SecurityRoutes from "./SecurityRoutes.jsx";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const basename = import.meta.env.MODE === "production" ? "/ArgentBank/" : "/";
+
+  const userProfil = useSelector((state) => state.login.userProfil);
+  // Fonction pour effectuer la redirection si l'utilisateur est déjà connecté
+  const redirectIfLoggedIn = () => {
+    console.log(userProfil);
+    if (userProfil) {
+      return <Navigate to="/user" />;
+    }
+    return null;
+  };
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<MainHome />} />
         <Route
           path="/sign-in"
-          // Définition du chemin de la route, ici pour l'URL "/sign-in"
-          // Appel de la fonction redirectIfLoggedIn() pour vérifier si l'utilisateur est connecté et le rediriger si nécessaire
-          // Composant de la page de connexion qui sera rendu si l'utilisateur n'est pas connecté
-          //element est une propriété qui permet de spécifier le contenu à rendre lorsque cette route est activée.
           element={
             <>
+              {redirectIfLoggedIn()}
               <SignIn />
             </>
           }
         />
-        <Route path="/user" element={<User />} />
-        <Route path="/editUser" element={<EditName />} />
+        <Route
+          path="/user"
+          element={
+            <SecurityRoutes>
+              <User />
+            </SecurityRoutes>
+          }
+        />
+        <Route
+          path="/editUser"
+          element={
+            <SecurityRoutes>
+              <EditName />
+            </SecurityRoutes>
+          }
+        />
       </Routes>
       <Footer />
     </BrowserRouter>
