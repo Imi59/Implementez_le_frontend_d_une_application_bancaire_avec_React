@@ -4,17 +4,18 @@ import { LuLogOut } from "react-icons/lu"; //npm install react-icons
 import { useSelector, useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { logoutUser } from "../../redux/loginSlice";
+
 const Navigation = () => {
   const dispatch = useDispatch();
   const loginStore = useSelector((state) => state.login);
   const token = useSelector((state) => state.login.userToken);
   if (token) {
     console.log(
-      "le token est présent dans le store donc je change Sign In en Sing out",
+      "le token est présent donc Sign In change en Sing out",
       token
     );
   } else {
-    console.log("le token n'est pas présent donc je laisse Sign IN");
+    console.log("token absent donc Sign IN");
   }
   // Au click sur logout supréssion du token du local storage
   const handleRedirectHome = () => {
