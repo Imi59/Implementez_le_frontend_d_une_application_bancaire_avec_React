@@ -1,19 +1,27 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import Accounts from "../../data/account"; // tableau Json
-import Account from "../Account/Account"; //Composant
+import Account from "../Account/Account"; // Composant
 import Button from "../Button/Button";
+import EditName from "../EditName/EditName"; // Importation du formulaire d'édition
+
 const User = () => {
-  const username = useSelector((state) => {
-    console.log(state.login);
-    return state.login.userProfil.userName;
-  });
-  // Gestion de l'affichage du formulaire pour modifier son username
-  const navigate = useNavigate();
+  const [isEditing, setIsEditing] = useState(false);
+  const username = useSelector((state) => state.login.userProfil.userName);
+
   const handleDisplayEdit = (e) => {
     e.preventDefault();
-    navigate("/editUser");
+    setIsEditing(true);
   };
+
+  const handleSave = () => {
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
   return (
     <main className="main bg-dark2">
       <div className="header">
@@ -22,11 +30,15 @@ const User = () => {
           <br />
           {username}!
         </h1>
-        <Button
-          className={"edit-button"}
-          btnText={"Edit Name"}
-          onClick={handleDisplayEdit}
-        ></Button>
+        {isEditing ? (
+          <EditName onSave={handleSave} onCancel={handleCancel} />
+        ) : (
+          <Button
+            className={"edit-button"}
+            btnText={"Edit Name"}
+            onClick={handleDisplayEdit}
+          />
+        )}
       </div>
       <h2 className="sr-only">Accounts</h2>
       {Accounts.map((account, index) => (
