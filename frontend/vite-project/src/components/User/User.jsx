@@ -4,7 +4,10 @@ import Accounts from "../../data/account"; // tableau Json
 import Account from "../Account/Account"; //Composant
 import Button from "../Button/Button";
 const User = () => {
-  const username = useSelector((state) => state.login.userProfil.userName);
+  const username = useSelector((state) => {
+    console.log(state.login);
+    return state.login.userProfil.userName;
+  });
   // Gestion de l'affichage du formulaire pour modifier son username
   const navigate = useNavigate();
   const handleDisplayEdit = (e) => {
