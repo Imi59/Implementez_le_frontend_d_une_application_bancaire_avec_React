@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Accounts from "../../data/account"; // tableau Json
 import Account from "../Account/Account"; // Composant
 import Button from "../Button/Button";
@@ -8,6 +9,14 @@ import EditName from "../EditName/EditName"; // Importation du formulaire d'édi
 const User = () => {
   const [isEditing, setIsEditing] = useState(false);
   const username = useSelector((state) => state.login.userProfil.userName);
+  const navigate = useNavigate();
+
+  //eviter le rechargement de la page quand un utilisateur non connecté éssaie d 'acceder à /user
+  useEffect(() => {
+    if (!username) {
+      navigate("/signin");
+    }
+  }, [username, navigate]);
 
   const handleDisplayEdit = (e) => {
     e.preventDefault();
