@@ -39,7 +39,7 @@ const SignIn = () => {
       navigate("/user");
     } catch (error) {
       console.error("Erreur lors de la connexion:", error);
-      setErreur("Identifiants incorrects");
+      setErreur("Identifiant ou mot de passe incorrects");
     }
   };
 
