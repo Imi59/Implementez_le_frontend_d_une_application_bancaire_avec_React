@@ -1,36 +1,34 @@
-// Creation de la slice de conexion
-
 import { createSlice } from "@reduxjs/toolkit";
 
 export const loginSlice = createSlice({
-  name: "login",
+  name: "login", // Nom de la slice dans le store Redux
   initialState: {
-    userToken: null,
-    userProfil: null,
+    userToken: null, // État initial du token utilisateur
+    userProfil: null, // État initial du profil utilisateur
   },
   reducers: {
-    //Action pour connecter l'utilisateur
+    // Action pour connecter l'utilisateur
     loginUser: (state, action) => {
-      state.userToken = action.payload; // Stokera les informations avec dispatch
+      state.userToken = action.payload; // Met à jour le token utilisateur avec les données fournies
     },
-    // Action pour deconecter l'utilisateur
+    // Action pour déconnecter l'utilisateur
     logoutUser: (state) => {
-      state.userToken = null; // Remet a zéro les information user
-      state.userProfil = null;
+      state.userToken = null; // Réinitialise le token utilisateur
+      state.userProfil = null; // Réinitialise le profil utilisateur
     },
-    //Action pour stoker les données utilisateur
+    // Action pour stocker les données utilisateur
     infoUser: (state, action) => {
-      state.userProfil = action.payload; // Stokera les informations avec dispatch
+      state.userProfil = action.payload; // Met à jour le profil utilisateur avec les données fournies
     },
-    //Action pour stoker les données utilisateur
+    // Action pour stocker ou mettre à jour le nom d'utilisateur
     infoUserName: (state, action) => {
-      console.log("voici le payload info user Name :", action.payload);
-      state.userProfil.userName = action.payload; // Stokera les informations avec dispatch
+      state.userProfil.userName = action.payload; // Met à jour le nom d'utilisateur dans le profil utilisateur
     },
   },
 });
 
+// Export des actions générées automatiquement par createSlice
 export const { loginUser, logoutUser, infoUser, infoUserName } =
   loginSlice.actions;
 
-export default loginSlice;
+export default loginSlice; // Export du slice lui-même

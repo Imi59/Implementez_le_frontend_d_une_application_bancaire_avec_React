@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
 import { loginUser, infoUser } from "../../redux/loginSlice";
 import { logUser, getUserProfile } from "../../core/api"; // Import des fonctions API
-import { mainStore } from "../../redux/store"; // Assurez-vous que le chemin est correct et utilisez le bon nom
+import { mainStore } from "../../redux/store";
 
 const SignIn = () => {
   // Initialisation de variables pour le formulaire de connexion

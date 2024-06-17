@@ -3,6 +3,7 @@ import Button from "../Button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { infoUserName } from "../../redux/loginSlice";
 import { changeUsername } from "../../core/api";
+import { mainStore } from "../../redux/store";
 
 const EditName = ({ onSave, onCancel }) => {
   const loginStore = useSelector((state) => state.login);
@@ -26,6 +27,10 @@ const EditName = ({ onSave, onCancel }) => {
         updateUserName.status
       );
       onSave();
+      console.log(
+        "État global du store après la connexion:",
+        mainStore.getState()
+      ); // Imprimez l'état du store complet
     } else {
       console.error("La mise à jour du nom d'utilisateur a échoué");
     }

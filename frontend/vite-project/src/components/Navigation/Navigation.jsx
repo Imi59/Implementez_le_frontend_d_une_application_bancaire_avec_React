@@ -11,7 +11,7 @@ const Navigation = () => {
   const token = useSelector((state) => state.login.userToken);
   if (token) {
     console.log(
-      "le token est présent donc Sign In change en Sing out",
+      "token présent donc Sign In devient Sign out",
       token
     );
   } else {
