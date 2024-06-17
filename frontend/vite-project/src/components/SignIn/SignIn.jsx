@@ -1,21 +1,29 @@
-/* eslint-disable no-empty */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 
-//Variables importées pour l'utilisation redux
+// Variables importées pour l'utilisation redux
 import { useDispatch } from "react-redux";
 import { loginUser, infoUser } from "../../redux/loginSlice";
 import { logUser, getUserProfile } from "../../core/api"; // Import des fonctions API
+import { mainStore } from "../../redux/store"; // Assurez-vous que le chemin est correct et utilisez le bon nom
 
 const SignIn = () => {
-  // initialisation de variables pour le formulaire de conexion
+  // Initialisation de variables pour le formulaire de connexion
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remenberMe, setRemenberMe] = useState(false);
   const [erreur, setErreur] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch(); // Utilise useDispatch
+
+  useEffect(() => {
+    // Ajouter un console.log pour voir l'état global avant la connexion
+    console.log(
+      "État global du store avant la connexion:",
+      mainStore.getState()
+    );
+  }, []);
 
   const handlelogin = async (e) => {
     e.preventDefault();
@@ -36,6 +44,17 @@ const SignIn = () => {
         userName: userInfo.body.userName,
       };
       await dispatch(infoUser(userInfos));
+
+      // Ajoutez un console.log ici pour visualiser l'état du store après la connexion
+      console.log(
+        "État global du store après la connexion:",
+        mainStore.getState()
+      ); // Imprimez l'état du store complet
+      console.log(
+        "État de login après la connexion:",
+        mainStore.getState().login
+      ); // Imprimez spécifiquement l'état de login
+
       navigate("/user");
     } catch (error) {
       console.error("Erreur lors de la connexion:", error);
@@ -60,7 +79,7 @@ const SignIn = () => {
               id="userEmail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder=" exemple@gmail.com"
+              placeholder="exemple@gmail.com"
               required
             />
           </div>
